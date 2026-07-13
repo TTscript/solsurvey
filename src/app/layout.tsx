@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Figtree, Fraunces } from "next/font/google";
 import { AppShell } from "@/components/AppShell";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const display = Fraunces({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
+
+const body = Figtree({
+  variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
@@ -54,7 +60,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "SolSurvey — Verified Surveys, Instant Rewards",
     description:
       "Verified surveys and instant rewards on Solana. Real users, real data.",
@@ -84,7 +90,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${jakarta.variable} font-sans antialiased`}>
+      <body className={`${display.variable} ${body.variable} font-sans antialiased`}>
         <AppShell>{children}</AppShell>
       </body>
     </html>

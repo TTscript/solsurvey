@@ -164,54 +164,54 @@ export default function BuilderPage() {
             ) : null}
 
             {status === "success" && surveyId ? (
-              <div className="mb-8 rounded-2xl border border-[#f0b90b]/30 bg-[#f0b90b]/10 p-5 sm:p-6">
-                <p className="mb-1 font-semibold text-[#f0b90b]">Survey live</p>
-                <p className="mb-4 text-sm text-[#b7bdc6]">{message}</p>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#848e9c]">Respondent link</p>
+              <div className="mb-8 rounded-2xl border border-pulse/30 bg-pulse/10 p-5 sm:p-6">
+                <p className="mb-1 font-semibold text-reward">Survey live</p>
+                <p className="mb-4 text-sm text-ink-soft">{message}</p>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted">Respondent link</p>
                 <div className="mb-4 flex flex-col gap-2 sm:flex-row">
                   <input
                     readOnly
                     value={surveyUrl}
-                    className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-mono text-white"
+                    className="min-w-0 flex-1 rounded-xl border border-line bg-ink/[0.04] px-4 py-2.5 text-sm font-mono text-ink"
                   />
                   <button
                     type="button"
                     onClick={() => navigator.clipboard.writeText(surveyUrl)}
-                    className="shrink-0 rounded-xl border border-[#f0b90b]/25 bg-[#f0b90b]/10 px-4 py-2.5 text-sm font-medium text-[#f0b90b] transition-colors hover:bg-[#f0b90b]/20"
+                    className="shrink-0 rounded-xl border border-reward/25 bg-pulse/10 px-4 py-2.5 text-sm font-medium text-reward transition-colors hover:bg-pulse/20"
                   >
                     Copy link
                   </button>
                 </div>
                 {resultsUrl ? (
                   <>
-                    <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#848e9c]">
+                    <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted">
                       Private results link
                     </p>
                     <div className="flex flex-col gap-2 sm:flex-row">
                       <input
                         readOnly
                         value={resultsUrl}
-                        className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-mono text-white"
+                        className="min-w-0 flex-1 rounded-xl border border-line bg-ink/[0.04] px-4 py-2.5 text-sm font-mono text-ink"
                       />
                       <button
                         type="button"
                         onClick={() => navigator.clipboard.writeText(resultsUrl)}
-                        className="shrink-0 rounded-xl border border-[#9945ff]/25 bg-[#9945ff]/10 px-4 py-2.5 text-sm font-medium text-[#c4b5fd] transition-colors hover:bg-[#9945ff]/20"
+                        className="shrink-0 rounded-xl border border-pulse/25 bg-pulse-soft px-4 py-2.5 text-sm font-medium text-pulse-deep transition-colors hover:bg-pulse/20"
                       >
                         Copy results
                       </button>
                     </div>
-                    <p className="mt-3 text-xs text-[#5e6673]">
+                    <p className="mt-3 text-xs text-muted">
                       Bookmark this link to view responses and pool spend. Do not share it publicly.
                     </p>
                   </>
                 ) : null}
                 <div className="mt-4 flex flex-wrap gap-4 text-sm">
-                  <Link href={`/survey/${surveyId}`} className="font-medium text-[#f0b90b] hover:text-[#fcd535]">
+                  <Link href={`/survey/${surveyId}`} className="font-medium text-reward hover:text-pulse">
                     Preview as respondent →
                   </Link>
                   {resultsUrl ? (
-                    <Link href={resultsUrl} className="font-medium text-[#c4b5fd] hover:text-white">
+                    <Link href={resultsUrl} className="font-medium text-pulse-deep hover:text-ink">
                       View results →
                     </Link>
                   ) : null}
@@ -221,29 +221,29 @@ export default function BuilderPage() {
 
             <form onSubmit={handleSubmit} className="space-y-10">
               <fieldset className="space-y-5" disabled={!connected}>
-                <legend className="mb-1 text-sm font-semibold uppercase tracking-wider text-[#848e9c]">
+                <legend className="mb-1 text-sm font-semibold uppercase tracking-wider text-muted">
                   1 · Basics
                 </legend>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-[#b7bdc6]">Survey title</label>
+                  <label className="mb-2 block text-sm font-medium text-ink-soft">Survey title</label>
                   <input
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     required
-                    className="w-full rounded-xl border border-white/10 bg-[#12161c] px-4 py-3 text-white placeholder-[#5e6673] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]/40 disabled:opacity-50"
+                    className="w-full rounded-xl border border-line bg-raised px-4 py-3 text-ink placeholder-muted focus:outline-none focus:ring-2 focus:ring-pulse/40 disabled:opacity-50"
                     placeholder="e.g. Beta feature feedback"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-[#b7bdc6]">
-                    Description <span className="text-[#5e6673]">(optional)</span>
+                  <label className="mb-2 block text-sm font-medium text-ink-soft">
+                    Description <span className="text-muted">(optional)</span>
                   </label>
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     rows={3}
-                    className="w-full resize-none rounded-xl border border-white/10 bg-[#12161c] px-4 py-3 text-white placeholder-[#5e6673] focus:outline-none focus:ring-2 focus:ring-[#f0b90b]/40 disabled:opacity-50"
+                    className="w-full resize-none rounded-xl border border-line bg-raised px-4 py-3 text-ink placeholder-muted focus:outline-none focus:ring-2 focus:ring-pulse/40 disabled:opacity-50"
                     placeholder="Tell respondents why their input matters and how long it takes."
                   />
                 </div>
@@ -251,13 +251,13 @@ export default function BuilderPage() {
 
               <fieldset className="space-y-4" disabled={!connected}>
                 <div className="flex items-center justify-between gap-3">
-                  <legend className="text-sm font-semibold uppercase tracking-wider text-[#848e9c]">
+                  <legend className="text-sm font-semibold uppercase tracking-wider text-muted">
                     2 · Questions ({questions.length})
                   </legend>
                   <button
                     type="button"
                     onClick={addQuestion}
-                    className="text-sm font-medium text-[#f0b90b] hover:text-[#fcd535] disabled:opacity-50"
+                    className="text-sm font-medium text-reward hover:text-pulse disabled:opacity-50"
                     disabled={!connected}
                   >
                     + Add question
@@ -265,9 +265,9 @@ export default function BuilderPage() {
                 </div>
                 <div className="space-y-4">
                   {questions.map((q, i) => (
-                    <div key={q.id} className="rounded-xl border border-white/10 bg-[#12161c]/60 p-4">
+                    <div key={q.id} className="rounded-xl border border-line bg-raised/80 p-4">
                       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-                        <span className="text-xs font-medium text-[#5e6673]">Question {i + 1}</span>
+                        <span className="text-xs font-medium text-muted">Question {i + 1}</span>
                         {questions.length > 1 ? (
                           <button
                             type="button"
@@ -287,7 +287,7 @@ export default function BuilderPage() {
                               options: e.target.value !== "text" ? [""] : undefined,
                             })
                           }
-                          className="min-w-0 flex-1 rounded-lg border border-white/10 bg-[#0b0e11] px-3 py-2 text-sm text-white sm:flex-none"
+                          className="min-w-0 flex-1 rounded-lg border border-line bg-paper px-3 py-2 text-sm text-ink sm:flex-none"
                         >
                           {QUESTION_TYPES.map((t) => (
                             <option key={t.value} value={t.value}>
@@ -295,7 +295,7 @@ export default function BuilderPage() {
                             </option>
                           ))}
                         </select>
-                        <span className="text-xs text-[#5e6673]">
+                        <span className="text-xs text-muted">
                           {QUESTION_TYPES.find((t) => t.value === q.type)?.hint}
                         </span>
                       </div>
@@ -304,7 +304,7 @@ export default function BuilderPage() {
                         value={q.text}
                         onChange={(e) => updateQuestion(i, { text: e.target.value })}
                         required
-                        className="mb-2 w-full rounded-lg border border-white/10 bg-[#0b0e11] px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#f0b90b]/30"
+                        className="mb-2 w-full rounded-lg border border-line bg-paper px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-pulse/30"
                         placeholder="Question text"
                       />
                       {(q.type === "single" || q.type === "multiple") && (
@@ -319,7 +319,7 @@ export default function BuilderPage() {
                                 opts[oi] = e.target.value;
                                 updateQuestion(i, { options: opts });
                               }}
-                              className="w-full rounded-lg border border-white/10 bg-[#0b0e11] px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#f0b90b]/30"
+                              className="w-full rounded-lg border border-line bg-paper px-3 py-1.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-pulse/30"
                               placeholder={`Option ${oi + 1}`}
                             />
                           ))}
@@ -329,7 +329,7 @@ export default function BuilderPage() {
                               const opts = [...(q.options ?? []), ""];
                               updateQuestion(i, { options: opts });
                             }}
-                            className="text-xs text-[#f0b90b] hover:text-[#fcd535]"
+                            className="text-xs text-reward hover:text-pulse"
                           >
                             + Add option
                           </button>
@@ -341,15 +341,15 @@ export default function BuilderPage() {
               </fieldset>
 
               <fieldset className="space-y-4" disabled={!connected}>
-                <legend className="mb-1 text-sm font-semibold uppercase tracking-wider text-[#848e9c]">
+                <legend className="mb-1 text-sm font-semibold uppercase tracking-wider text-muted">
                   3 · Reward pool
                 </legend>
-                <p className="text-sm text-[#848e9c]">
+                <p className="text-sm text-muted">
                   On publish you&apos;ll send this amount from your connected wallet to fund respondent payouts.
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-[#b7bdc6]">
+                    <label className="mb-2 block text-sm font-medium text-ink-soft">
                       Reward per response (SOL)
                     </label>
                     <input
@@ -359,11 +359,11 @@ export default function BuilderPage() {
                       value={rewardPerResponseSol}
                       onChange={(e) => setRewardPerResponseSol(e.target.value)}
                       required
-                      className="w-full rounded-xl border border-white/10 bg-[#12161c] px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#f0b90b]/40"
+                      className="w-full rounded-xl border border-line bg-raised px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-pulse/40"
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-[#b7bdc6]">
+                    <label className="mb-2 block text-sm font-medium text-ink-soft">
                       Total reward pool (SOL)
                     </label>
                     <input
@@ -373,27 +373,27 @@ export default function BuilderPage() {
                       value={totalRewardPoolSol}
                       onChange={(e) => setTotalRewardPoolSol(e.target.value)}
                       required
-                      className="w-full rounded-xl border border-white/10 bg-[#12161c] px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#f0b90b]/40"
+                      className="w-full rounded-xl border border-line bg-raised px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-pulse/40"
                     />
                   </div>
                 </div>
                 {maxPaidResponses > 0 ? (
-                  <p className="rounded-lg border border-[#9945ff]/20 bg-[#9945ff]/[0.06] px-3 py-2 text-sm text-[#c4b5fd]">
-                    You&apos;ll transfer <strong className="text-white">{poolNum.toFixed(4)} SOL</strong> to fund up to{" "}
-                    <strong className="text-white">{maxPaidResponses}</strong> paid{" "}
+                  <p className="rounded-lg border border-pulse/20 bg-pulse-soft px-3 py-2 text-sm text-pulse-deep">
+                    You&apos;ll transfer <strong className="text-ink">{poolNum.toFixed(4)} SOL</strong> to fund up to{" "}
+                    <strong className="text-ink">{maxPaidResponses}</strong> paid{" "}
                     {maxPaidResponses === 1 ? "response" : "responses"}.
                   </p>
                 ) : null}
               </fieldset>
 
               {message && status !== "success" ? (
-                <p className={`text-sm ${status === "loading" ? "text-[#848e9c]" : "text-rose-400"}`}>{message}</p>
+                <p className={`text-sm ${status === "loading" ? "text-muted" : "text-rose-400"}`}>{message}</p>
               ) : null}
 
               <button
                 type="submit"
                 disabled={status === "loading" || !connected}
-                className="w-full rounded-xl bg-[#f0b90b] py-3.5 font-semibold text-[#0b0e11] shadow-lg shadow-[#f0b90b]/15 transition hover:bg-[#fcd535] disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-pulse py-3.5 font-semibold text-white shadow-lg shadow-pulse/20 transition hover:bg-pulse-deep disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {!connected
                   ? "Connect wallet to publish"
@@ -410,15 +410,15 @@ export default function BuilderPage() {
             <ContentCard title="How funding works">
               <ol className="space-y-2.5 text-sm">
                 <li className="flex gap-2">
-                  <span className="text-[#f0b90b]">1.</span>
+                  <span className="text-reward">1.</span>
                   <span>Connect your wallet as the survey creator.</span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-[#f0b90b]">2.</span>
+                  <span className="text-reward">2.</span>
                   <span>Publish sends your pool SOL to the SolSurvey payout wallet.</span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-[#f0b90b]">3.</span>
+                  <span className="text-reward">3.</span>
                   <span>Respondents receive rewards from that deposit on submit.</span>
                 </li>
               </ol>
@@ -428,17 +428,17 @@ export default function BuilderPage() {
           <RevealOnScroll delay={200}>
             <ContentCard title="Pool math">
               <dl className="space-y-2 text-sm">
-                <div className="flex justify-between gap-3 border-b border-white/[0.06] pb-2">
-                  <dt className="text-[#848e9c]">Per response</dt>
-                  <dd className="font-mono text-[#f0b90b]">{rewardNum.toFixed(4)} SOL</dd>
+                <div className="flex justify-between gap-3 border-b border-line pb-2">
+                  <dt className="text-muted">Per response</dt>
+                  <dd className="font-mono text-reward">{rewardNum.toFixed(4)} SOL</dd>
                 </div>
-                <div className="flex justify-between gap-3 border-b border-white/[0.06] pb-2">
-                  <dt className="text-[#848e9c]">You fund</dt>
-                  <dd className="font-mono text-white">{poolNum.toFixed(4)} SOL</dd>
+                <div className="flex justify-between gap-3 border-b border-line pb-2">
+                  <dt className="text-muted">You fund</dt>
+                  <dd className="font-mono text-ink">{poolNum.toFixed(4)} SOL</dd>
                 </div>
                 <div className="flex justify-between gap-3 pt-1">
-                  <dt className="text-[#848e9c]">Max payouts</dt>
-                  <dd className="font-mono font-medium text-white">
+                  <dt className="text-muted">Max payouts</dt>
+                  <dd className="font-mono font-medium text-ink">
                     {maxPaidResponses > 0 ? maxPaidResponses : "—"}
                   </dd>
                 </div>
@@ -451,7 +451,7 @@ export default function BuilderPage() {
               <ul className="space-y-2.5">
                 {BUILDER_TIPS.map((tip) => (
                   <li key={tip} className="flex gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#f0b90b]" />
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-pulse" />
                     <span>{tip}</span>
                   </li>
                 ))}

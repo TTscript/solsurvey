@@ -72,23 +72,23 @@ export default function RewardFlowPage() {
               <div className="relative flex gap-5 pb-10 last:pb-0 sm:gap-8">
                 {i < pipeline.length - 1 ? (
                   <span
-                    className="absolute left-[1.125rem] top-10 bottom-0 w-px bg-gradient-to-b from-[#f0b90b]/40 to-transparent sm:left-[1.25rem]"
+                    className="absolute left-[1.125rem] top-10 bottom-0 w-px bg-gradient-to-b from-pulse/40 to-transparent sm:left-[1.25rem]"
                     aria-hidden
                   />
                 ) : null}
-                <div className="relative z-[1] flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#9945ff]/35 bg-[#9945ff]/10 text-[10px] font-bold uppercase tracking-wider text-[#c4b5fd] sm:h-10 sm:w-10">
+                <div className="relative z-[1] flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-pulse/35 bg-pulse-soft text-[10px] font-bold uppercase tracking-wider text-pulse-deep sm:h-10 sm:w-10">
                   {String(i + 1).padStart(2, "0")}
                 </div>
                 <div className="min-w-0 pt-0.5">
-                  <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-[#f0b90b]">
+                  <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-reward">
                     {step.phase}
                   </p>
-                  <h2 className="mb-2 text-lg font-semibold text-white sm:text-xl">{step.title}</h2>
-                  <p className="mb-3 leading-relaxed text-[#848e9c]">{step.body}</p>
+                  <h2 className="mb-2 text-lg font-semibold text-ink sm:text-xl">{step.title}</h2>
+                  <p className="mb-3 leading-relaxed text-muted">{step.body}</p>
                   <ul className="space-y-1.5">
                     {step.details.map((d) => (
-                      <li key={d} className="flex gap-2 text-sm text-[#b7bdc6]">
-                        <span className="text-[#9945ff]">·</span>
+                      <li key={d} className="flex gap-2 text-sm text-ink-soft">
+                        <span className="text-pulse">·</span>
                         {d}
                       </li>
                     ))}
@@ -130,7 +130,7 @@ export default function RewardFlowPage() {
             <p>
               Each completed survey uses one reward from your pool. When the remaining balance is less than one payout,
               new paid responses pause. Create a new survey with a fresh pool—or size the pool larger upfront in the{" "}
-              <Link href="/builder" className="text-[#f0b90b] hover:text-[#fcd535]">
+              <Link href="/builder" className="text-reward hover:text-pulse">
                 builder
               </Link>
               .
@@ -140,21 +140,21 @@ export default function RewardFlowPage() {
       </RevealOnScroll>
 
       <RevealOnScroll delay={520}>
-        <div className="flex flex-col gap-3 rounded-xl border border-[#9945ff]/20 bg-gradient-to-br from-[#9945ff]/[0.08] to-transparent p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+        <div className="flex flex-col gap-3 rounded-xl border border-pulse/20 bg-gradient-to-br from-pulse-soft to-transparent p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div>
-          <p className="font-semibold text-white">Ready to launch?</p>
-          <p className="mt-1 text-sm text-[#848e9c]">Start with one question and a small pool—you can always run another.</p>
+          <p className="font-semibold text-ink">Ready to launch?</p>
+          <p className="mt-1 text-sm text-muted">Start with one question and a small pool—you can always run another.</p>
         </div>
         <div className="flex flex-col gap-2 sm:flex-row">
           <Link
             href="/builder"
-            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#f0b90b] px-5 py-2.5 text-sm font-semibold text-[#0b0e11] transition hover:bg-[#fcd535]"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-pulse px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-pulse-deep"
           >
             Open builder
           </Link>
           <Link
             href="/operators"
-            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/15 px-5 py-2.5 text-sm font-medium text-zinc-300 transition hover:bg-white/5"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-line-strong px-5 py-2.5 text-sm font-medium text-ink-soft transition hover:bg-ink/[0.04]"
           >
             Creator guide
           </Link>

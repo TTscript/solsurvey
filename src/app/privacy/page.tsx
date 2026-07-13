@@ -16,7 +16,7 @@ export default function PrivacyPage() {
     >
       <RevealOnScroll delay={80}>
         <PageSection title="What we collect">
-          <ul className="space-y-3 text-sm leading-relaxed text-[#b7bdc6]">
+          <ul className="space-y-3 text-sm leading-relaxed text-ink-soft">
             <li>Your Solana wallet address when you connect to take or fund a survey.</li>
             <li>Survey answers you submit through a rewarded form.</li>
             <li>Basic technical logs needed to run the service (errors, rate limits).</li>
@@ -26,7 +26,7 @@ export default function PrivacyPage() {
 
       <RevealOnScroll delay={160}>
         <PageSection title="What is not public on-chain">
-          <p className="text-sm leading-relaxed text-[#b7bdc6]">
+          <p className="text-sm leading-relaxed text-ink-soft">
             Your written survey answers are stored privately by SolSurvey. They are not published to Solana. Only SOL
             reward transfers appear on-chain and can be viewed on a block explorer.
           </p>
@@ -35,7 +35,7 @@ export default function PrivacyPage() {
 
       <RevealOnScroll delay={240}>
         <PageSection title="Wallet verification">
-          <p className="text-sm leading-relaxed text-[#b7bdc6]">
+          <p className="text-sm leading-relaxed text-ink-soft">
             We may check wallet balance and recent activity to reduce spam. We do not sell wallet data or use it for
             advertising profiles.
           </p>
@@ -44,7 +44,7 @@ export default function PrivacyPage() {
 
       <RevealOnScroll delay={320}>
         <PageSection title="Your choices">
-          <p className="text-sm leading-relaxed text-[#b7bdc6]">
+          <p className="text-sm leading-relaxed text-ink-soft">
             You choose whether to connect a wallet and complete a survey. Survey creators receive responses tied to
             wallet addresses for payout and duplicate prevention. Only participate if you trust the survey publisher.
           </p>

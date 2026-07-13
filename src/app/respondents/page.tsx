@@ -59,7 +59,7 @@ const items: { q: string; a: string }[] = [
   },
 ];
 
-const wallets = ["Phantom", "Solflare", "Backpack"] as const;
+const wallets = ["Phantom", "Solflare"] as const;
 
 export default function RespondentsPage() {
   return (
@@ -87,13 +87,13 @@ export default function RespondentsPage() {
             {wallets.map((w) => (
               <span
                 key={w}
-                className="rounded-full border border-white/10 bg-[#1a1f27]/80 px-3.5 py-1.5 text-sm text-[#b7bdc6]"
+                className="rounded-full border border-line bg-paper px-3.5 py-1.5 text-sm text-ink-soft"
               >
                 {w}
               </span>
             ))}
           </div>
-          <p className="mt-4 text-sm text-[#848e9c]">
+          <p className="mt-4 text-sm text-muted">
             Install a browser wallet extension, connect on the survey page, then answer the questions.
           </p>
         </PageSection>
@@ -104,14 +104,14 @@ export default function RespondentsPage() {
           <div className="space-y-3">
             {items.map(({ q, a }, i) => (
               <RevealOnScroll key={q} delay={i * 50}>
-                <details className="group rounded-xl border border-white/10 bg-[#12161c]/60 px-4 open:bg-[#1a1f27]/60 sm:px-5">
-                  <summary className="cursor-pointer list-none py-4 font-medium text-white [&::-webkit-details-marker]:hidden">
+                <details className="group rounded-xl border border-line bg-raised/80 px-4 open:bg-paper/60 sm:px-5">
+                  <summary className="cursor-pointer list-none py-4 font-medium text-ink [&::-webkit-details-marker]:hidden">
                     <span className="flex items-center justify-between gap-4">
                       {q}
-                      <span className="text-[#f0b90b]/80 transition group-open:rotate-180">▼</span>
+                      <span className="text-reward/80 transition group-open:rotate-180">▼</span>
                     </span>
                   </summary>
-                  <p className="border-t border-white/[0.06] pb-4 pt-3 text-sm leading-relaxed text-[#848e9c]">
+                  <p className="border-t border-line pb-4 pt-3 text-sm leading-relaxed text-muted">
                     {a}
                   </p>
                 </details>
@@ -131,21 +131,21 @@ export default function RespondentsPage() {
       </RevealOnScroll>
 
       <RevealOnScroll delay={400}>
-        <p className="mt-8 text-sm text-[#5e6673] sm:mt-10">
-          <Link href="/surveys" className="font-medium text-[#f0b90b] hover:text-[#fcd535]">
+        <p className="mt-8 text-sm text-muted sm:mt-10">
+          <Link href="/surveys" className="font-medium text-reward hover:text-pulse">
             Browse open surveys
           </Link>
           {" · "}
           Running surveys?{" "}
-          <Link href="/builder" className="font-medium text-[#f0b90b] hover:text-[#fcd535]">
+          <Link href="/builder" className="font-medium text-reward hover:text-pulse">
             Open the builder
           </Link>
           {" · "}
-          <Link href="/reward-flow" className="font-medium text-[#f0b90b] hover:text-[#fcd535]">
+          <Link href="/reward-flow" className="font-medium text-reward hover:text-pulse">
             Reward flow
           </Link>
           {" · "}
-          <Link href="/operators" className="font-medium text-[#f0b90b] hover:text-[#fcd535]">
+          <Link href="/operators" className="font-medium text-reward hover:text-pulse">
             Creator guide
           </Link>
         </p>

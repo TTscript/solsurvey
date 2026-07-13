@@ -24,15 +24,15 @@ export function ConnectWalletButton({ className = "", fullWidth = false }: Props
         <button
           type="button"
           onClick={() => setVisible(true)}
-          className={`${widthClass} inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[#9945ff]/35 bg-[#9945ff]/10 px-5 py-3 text-sm font-medium text-white transition hover:border-[#9945ff]/50 hover:bg-[#9945ff]/15`}
+          className={`${widthClass} inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-pulse/35 bg-pulse-soft px-5 py-3 text-sm font-medium text-ink transition hover:border-pulse/50`}
         >
-          <span className="h-2 w-2 rounded-full bg-[#f0b90b] shadow-[0_0_8px_rgba(240,185,11,0.6)]" aria-hidden />
-          <span className="font-mono text-[#f0b90b]">{shortenAddress(publicKey.toBase58())}</span>
+          <span className="size-2 rounded-full bg-pulse shadow-[0_0_8px_rgba(15,158,138,0.55)]" aria-hidden />
+          <span className="font-mono text-pulse-deep">{shortenAddress(publicKey.toBase58())}</span>
         </button>
         <button
           type="button"
           onClick={() => disconnect()}
-          className="text-xs text-[#848e9c] transition hover:text-white"
+          className="text-xs text-muted transition hover:text-ink"
         >
           Disconnect
         </button>
@@ -45,7 +45,7 @@ export function ConnectWalletButton({ className = "", fullWidth = false }: Props
       type="button"
       onClick={() => setVisible(true)}
       disabled={connecting}
-      className={`${widthClass} inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#f0b90b] px-6 py-3.5 text-sm font-semibold text-[#0b0e11] shadow-lg shadow-[#f0b90b]/15 transition hover:bg-[#fcd535] disabled:cursor-wait disabled:opacity-70 ${className}`.trim()}
+      className={`ss-btn-primary ${widthClass} inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold disabled:cursor-wait disabled:opacity-70 ${className}`.trim()}
     >
       <WalletIcon />
       {connecting ? "Connecting…" : "Connect wallet"}

@@ -70,15 +70,15 @@ export default function OperatorsPage() {
       description="Launch a rewarded questionnaire in minutes—fund a pool, share a link, and pay respondents when they submit."
     >
       <RevealOnScroll delay={80}>
-        <div className="mb-8 space-y-4 leading-relaxed text-[#848e9c] sm:mb-10">
-          <p className="text-base text-zinc-300 sm:text-lg">
+        <div className="mb-8 space-y-4 leading-relaxed text-muted sm:mb-10">
+          <p className="text-base text-ink-soft sm:text-lg">
             SolSurvey turns feedback into a simple flow:{" "}
-            <strong className="font-medium text-white">questions, a SOL reward pool, and one shareable link</strong>.
+            <strong className="font-medium text-ink">questions, a SOL reward pool, and one shareable link</strong>.
             People connect a wallet, answer, and get paid on submit—no gift cards, no payout desk.
           </p>
           <p>
             Built for teams, communities, and founders who want{" "}
-            <strong className="font-medium text-white">real answers with aligned incentives</strong>—product pulses,
+            <strong className="font-medium text-ink">real answers with aligned incentives</strong>—product pulses,
             beta feedback, event surveys, and community check-ins.
           </p>
         </div>
@@ -102,8 +102,8 @@ export default function OperatorsPage() {
         <PageSection title="Before you publish">
           <ul className="space-y-2.5">
             {beforePublish.map((item) => (
-              <li key={item} className="flex gap-3 text-sm text-[#b7bdc6]">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-[#f0b90b]/30 text-[10px] font-bold text-[#f0b90b]">
+              <li key={item} className="flex gap-3 text-sm text-ink-soft">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-pulse/30 text-[10px] font-bold text-reward">
                   ✓
                 </span>
                 {item}
@@ -148,19 +148,19 @@ export default function OperatorsPage() {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/builder"
-            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#f0b90b] px-5 py-2.5 text-sm font-semibold text-[#0b0e11] transition hover:bg-[#fcd535]"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-pulse px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-pulse-deep"
           >
             Open builder
           </Link>
           <Link
             href="/reward-flow"
-            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/15 px-5 py-2.5 text-sm font-medium text-zinc-300 transition hover:bg-white/5"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-line-strong px-5 py-2.5 text-sm font-medium text-ink-soft transition hover:bg-ink/[0.04]"
           >
             Reward flow
           </Link>
           <Link
             href="/respondents"
-            className="inline-flex min-h-11 items-center justify-center text-sm font-medium text-[#f0b90b] hover:text-[#fcd535]"
+            className="inline-flex min-h-11 items-center justify-center text-sm font-medium text-reward hover:text-pulse"
           >
             Respondent guide →
           </Link>

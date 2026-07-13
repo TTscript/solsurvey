@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { isNavActive, legalNav, mainNav } from "@/lib/site-nav";
+import { guideNav, isNavActive, legalNav, mainNav } from "@/lib/site-nav";
 
 const MOBILE_HEADER_OFFSET = "3.5rem";
 
@@ -59,10 +59,10 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#0b0e11]/95 backdrop-blur-xl pt-[env(safe-area-inset-top,0px)]">
+      <header className="sticky top-0 z-50 border-b border-line bg-raised/90 backdrop-blur-xl pt-[env(safe-area-inset-top,0px)]">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-14 items-center justify-between gap-3 md:h-16">
-            <Link href="/" className="flex min-w-0 items-center gap-2" onClick={closeMenu}>
+            <Link href="/" className="flex min-w-0 items-center gap-2.5" onClick={closeMenu}>
               <Image
                 src="/icon.svg"
                 width={32}
@@ -71,37 +71,26 @@ export function SiteHeader() {
                 alt=""
                 unoptimized
               />
-              <div className="min-w-0">
-                <span className="block truncate text-base font-semibold tracking-tight md:text-lg">
-                  Sol<span className="text-[#f0b90b]">Survey</span>
-                </span>
-                <span className="hidden text-[11px] text-[#5e6673] md:block">
-                  Incentivized questionnaires on Solana
-                </span>
-              </div>
+              <span className="ss-display truncate text-xl text-ink md:text-2xl">
+                SolSurvey
+              </span>
             </Link>
 
             <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
-              {mainNav.map(({ href, label }, i) => {
+              {mainNav.map(({ href, label }) => {
                 const active = isNavActive(pathname, href);
                 return (
-                  <span key={href} className="flex items-center">
-                    {i > 0 ? (
-                      <span className="mx-2 text-[#2b3139] select-none" aria-hidden>
-                        /
-                      </span>
-                    ) : null}
-                    <Link
-                      href={href}
-                      className={`border-b-2 pb-0.5 text-sm transition-colors ${
-                        active
-                          ? "border-[#f0b90b] font-medium text-white"
-                          : "border-transparent text-[#848e9c] hover:border-white/20 hover:text-zinc-200"
-                      }`}
-                    >
-                      {label}
-                    </Link>
-                  </span>
+                  <Link
+                    key={href}
+                    href={href}
+                    className={`rounded-lg px-3 py-2 text-sm transition-colors ${
+                      active
+                        ? "bg-pulse-soft font-semibold text-pulse-deep"
+                        : "text-ink-soft hover:bg-ink/[0.04] hover:text-ink"
+                    }`}
+                  >
+                    {label}
+                  </Link>
                 );
               })}
             </nav>
@@ -109,7 +98,7 @@ export function SiteHeader() {
             <div className="flex shrink-0 items-center gap-2">
               <Link
                 href="/builder"
-                className="hidden min-h-10 items-center justify-center rounded-xl bg-[#f0b90b] px-4 text-sm font-semibold text-[#0b0e11] transition hover:bg-[#fcd535] lg:inline-flex"
+                className="ss-btn-primary hidden min-h-10 items-center justify-center rounded-xl px-4 text-sm font-semibold lg:inline-flex"
               >
                 Launch builder
               </Link>
@@ -117,8 +106,8 @@ export function SiteHeader() {
                 type="button"
                 className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border transition lg:hidden ${
                   menuOpen
-                    ? "border-[#f0b90b]/35 bg-[#f0b90b]/10 text-[#f0b90b]"
-                    : "border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.07]"
+                    ? "border-pulse/40 bg-pulse-soft text-pulse-deep"
+                    : "border-line bg-raised text-ink hover:bg-ink/[0.04]"
                 }`}
                 aria-expanded={menuOpen}
                 aria-controls="mobile-nav"
@@ -139,7 +128,7 @@ export function SiteHeader() {
       >
         <button
           type="button"
-          className={`absolute inset-0 bg-black/75 backdrop-blur-[2px] transition-opacity duration-300 ${
+          className={`absolute inset-0 bg-ink/40 backdrop-blur-[2px] transition-opacity duration-300 ${
             menuOpen ? "opacity-100" : "opacity-0"
           }`}
           aria-label="Close menu"
@@ -149,17 +138,17 @@ export function SiteHeader() {
 
         <nav
           id="mobile-nav"
-          className={`absolute inset-y-0 right-0 flex w-full max-w-[20rem] flex-col border-l border-white/10 bg-[#0f1218] shadow-2xl transition-transform duration-300 ease-out ${
+          className={`absolute inset-y-0 right-0 flex w-full max-w-[20rem] flex-col border-l border-line bg-raised shadow-2xl transition-transform duration-300 ease-out ${
             menuOpen ? "translate-x-0" : "translate-x-full"
           }`}
           aria-label="Mobile"
           aria-hidden={!menuOpen}
         >
-          <div className="flex items-center justify-between border-b border-white/[0.08] px-4 py-3.5">
-            <span className="text-sm font-semibold text-white">Navigate</span>
+          <div className="flex items-center justify-between border-b border-line px-4 py-3.5">
+            <span className="text-sm font-semibold text-ink">Navigate</span>
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-zinc-400 transition hover:bg-white/[0.05] hover:text-white"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted transition hover:bg-ink/[0.05] hover:text-ink"
               aria-label="Close menu"
               tabIndex={menuOpen ? 0 : -1}
               onClick={closeMenu}
@@ -176,23 +165,23 @@ export function SiteHeader() {
                 tabIndex={menuOpen ? 0 : -1}
                 className={`flex min-h-12 items-center gap-3 rounded-xl border px-3.5 py-3 transition active:scale-[0.99] ${
                   pathname === "/"
-                    ? "border-[#f0b90b]/30 bg-[#f0b90b]/10"
-                    : "border-transparent hover:border-white/[0.06] hover:bg-white/[0.03]"
+                    ? "border-pulse/30 bg-pulse-soft"
+                    : "border-transparent hover:border-line hover:bg-ink/[0.03]"
                 }`}
               >
                 <span
-                  className={`h-7 w-1 shrink-0 rounded-full ${pathname === "/" ? "bg-[#f0b90b]" : "bg-white/10"}`}
+                  className={`h-7 w-1 shrink-0 rounded-full ${pathname === "/" ? "bg-pulse" : "bg-line-strong"}`}
                   aria-hidden
                 />
                 <span className="min-w-0">
-                  <span className={`block text-[15px] font-medium ${pathname === "/" ? "text-[#f0b90b]" : "text-white"}`}>
+                  <span className={`block text-[15px] font-medium ${pathname === "/" ? "text-pulse-deep" : "text-ink"}`}>
                     Home
                   </span>
-                  <span className="block text-xs leading-snug text-[#848e9c]">Landing & overview</span>
+                  <span className="block text-xs leading-snug text-muted">Landing & overview</span>
                 </span>
               </Link>
             </li>
-            {mainNav.map(({ href, label, hint }) => {
+            {[...mainNav, ...guideNav].map(({ href, label, hint }) => {
               const active = isNavActive(pathname, href);
               return (
                 <li key={href}>
@@ -202,19 +191,19 @@ export function SiteHeader() {
                     tabIndex={menuOpen ? 0 : -1}
                     className={`flex min-h-12 items-center gap-3 rounded-xl border px-3.5 py-3 transition active:scale-[0.99] ${
                       active
-                        ? "border-[#f0b90b]/30 bg-[#f0b90b]/10"
-                        : "border-transparent hover:border-white/[0.06] hover:bg-white/[0.03]"
+                        ? "border-pulse/30 bg-pulse-soft"
+                        : "border-transparent hover:border-line hover:bg-ink/[0.03]"
                     }`}
                   >
                     <span
-                      className={`h-7 w-1 shrink-0 rounded-full ${active ? "bg-[#f0b90b]" : "bg-white/10"}`}
+                      className={`h-7 w-1 shrink-0 rounded-full ${active ? "bg-pulse" : "bg-line-strong"}`}
                       aria-hidden
                     />
                     <span className="min-w-0">
-                      <span className={`block text-[15px] font-medium ${active ? "text-[#f0b90b]" : "text-white"}`}>
+                      <span className={`block text-[15px] font-medium ${active ? "text-pulse-deep" : "text-ink"}`}>
                         {label}
                       </span>
-                      <span className="block text-xs leading-snug text-[#848e9c]">{hint}</span>
+                      <span className="block text-xs leading-snug text-muted">{hint}</span>
                     </span>
                   </Link>
                 </li>
@@ -222,23 +211,23 @@ export function SiteHeader() {
             })}
           </ul>
 
-          <div className="shrink-0 border-t border-white/[0.08] bg-[#0b0e11]/80 px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+          <div className="shrink-0 border-t border-line bg-paper/80 px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
             <Link
               href="/builder"
               onClick={closeMenu}
               tabIndex={menuOpen ? 0 : -1}
-              className="flex min-h-11 items-center justify-center rounded-xl bg-[#f0b90b] px-4 text-sm font-semibold text-[#0b0e11] transition hover:bg-[#fcd535]"
+              className="ss-btn-primary flex min-h-11 items-center justify-center rounded-xl px-4 text-sm font-semibold"
             >
               Launch builder
             </Link>
-            <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 pt-1 text-xs">
+            <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 pt-3 text-xs">
               {legalNav.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
                   onClick={closeMenu}
                   tabIndex={menuOpen ? 0 : -1}
-                  className="text-[#848e9c] transition hover:text-[#f0b90b]"
+                  className="text-muted transition hover:text-pulse-deep"
                 >
                   {label}
                 </Link>

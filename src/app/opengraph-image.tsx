@@ -15,9 +15,9 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: 72,
-          background: "#0b0e11",
-          color: "#fafafa",
-          fontFamily: "system-ui, sans-serif",
+          background: "#e6ecf1",
+          color: "#0e1720",
+          fontFamily: "Georgia, serif",
         }}
       >
         <div
@@ -28,18 +28,28 @@ export default function OpenGraphImage() {
             right: 0,
             bottom: 0,
             background:
-              "radial-gradient(ellipse at 30% 20%, rgba(153,69,255,0.35) 0%, transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(240,185,11,0.15) 0%, transparent 50%)",
+              "radial-gradient(ellipse at 80% 10%, rgba(15,158,138,0.18) 0%, transparent 55%), radial-gradient(ellipse at 10% 90%, rgba(14,23,32,0.06) 0%, transparent 50%)",
           }}
         />
-        <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 20 }}>
-          <p style={{ fontSize: 28, color: "#c4b5fd", margin: 0, letterSpacing: 4, textTransform: "uppercase" }}>
+        <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 18 }}>
+          <p
+            style={{
+              fontSize: 22,
+              color: "#0f9e8a",
+              margin: 0,
+              letterSpacing: 6,
+              textTransform: "uppercase",
+              fontFamily: "system-ui, sans-serif",
+              fontWeight: 700,
+            }}
+          >
             Solana surveys
           </p>
-          <p style={{ fontSize: 72, fontWeight: 800, margin: 0, lineHeight: 1.05, maxWidth: 900 }}>
-            Rewarded feedback, paid instantly.
+          <p style={{ fontSize: 84, fontWeight: 600, margin: 0, lineHeight: 0.95, letterSpacing: -2 }}>
+            SolSurvey
           </p>
-          <p style={{ fontSize: 30, color: "#848e9c", margin: 0, maxWidth: 820 }}>
-            Wallet-verified responses · SOL on submit · One shareable link
+          <p style={{ fontSize: 34, margin: 0, maxWidth: 820, fontFamily: "system-ui, sans-serif", color: "#3a4a58" }}>
+            Rewarded feedback, paid on submit.
           </p>
         </div>
       </div>

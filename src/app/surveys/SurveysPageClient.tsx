@@ -50,28 +50,28 @@ export default function SurveysPageClient() {
           <section className="mb-8 sm:mb-10">
             <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
               <div>
-                <h2 className="text-lg font-bold text-white sm:text-xl">Your surveys</h2>
-                <p className="mt-1 text-sm text-[#848e9c]">
+                <h2 className="text-lg font-bold text-ink sm:text-xl">Your surveys</h2>
+                <p className="mt-1 text-sm text-muted">
                   Published from wallet{" "}
-                  <span className="font-mono text-[#f0b90b]">
+                  <span className="font-mono text-reward">
                     {publicKey.toBase58().slice(0, 4)}…{publicKey.toBase58().slice(-4)}
                   </span>
                 </p>
               </div>
               <Link
                 href="/builder"
-                className="inline-flex min-h-10 items-center justify-center rounded-xl bg-[#f0b90b] px-4 text-sm font-semibold text-[#0b0e11] hover:bg-[#fcd535]"
+                className="inline-flex min-h-10 items-center justify-center rounded-xl bg-pulse px-4 text-sm font-semibold text-white hover:bg-pulse-deep"
               >
                 New survey
               </Link>
             </div>
 
             {loadingMine ? (
-              <p className="text-sm text-[#848e9c]">Loading your surveys…</p>
+              <p className="text-sm text-muted">Loading your surveys…</p>
             ) : mySurveys.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-white/15 px-4 py-10 text-center">
-                <p className="mb-2 text-sm text-[#848e9c]">You haven&apos;t published any surveys yet.</p>
-                <Link href="/builder" className="text-sm font-medium text-[#f0b90b] hover:text-[#fcd535]">
+              <div className="rounded-xl border border-dashed border-line-strong px-4 py-10 text-center">
+                <p className="mb-2 text-sm text-muted">You haven&apos;t published any surveys yet.</p>
+                <Link href="/builder" className="text-sm font-medium text-reward hover:text-pulse">
                   Create your first survey →
                 </Link>
               </div>
@@ -84,7 +84,7 @@ export default function SurveysPageClient() {
                 ))}
               </div>
             )}
-            <p className="mt-4 text-xs text-[#5e6673]">
+            <p className="mt-4 text-xs text-muted">
               Private results links are shown once in the builder after funding—save them when you publish.
             </p>
           </section>
@@ -103,12 +103,12 @@ export default function SurveysPageClient() {
 
       <RevealOnScroll delay={160}>
         <section>
-          <h2 className="mb-4 text-lg font-bold text-white sm:text-xl">Open surveys</h2>
+          <h2 className="mb-4 text-lg font-bold text-ink sm:text-xl">Open surveys</h2>
 
           {openSurveys.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-white/15 px-4 py-12 text-center">
-              <p className="mb-2 text-sm text-[#848e9c]">No live surveys yet.</p>
-              <Link href="/builder" className="text-sm font-medium text-[#f0b90b] hover:text-[#fcd535]">
+            <div className="rounded-xl border border-dashed border-line-strong px-4 py-12 text-center">
+              <p className="mb-2 text-sm text-muted">No live surveys yet.</p>
+              <Link href="/builder" className="text-sm font-medium text-reward hover:text-pulse">
                 Be the first to publish →
               </Link>
             </div>
@@ -126,7 +126,7 @@ export default function SurveysPageClient() {
 
               {liveFull.length > 0 ? (
                 <>
-                  <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#848e9c]">
+                  <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted">
                     Recently filled
                   </h3>
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,20 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="8" fill="#0c1216"/>
-  <rect x="7" y="18" width="4" height="8" rx="1" fill="url(#ss1)"/>
-  <rect x="14" y="13" width="4" height="13" rx="1" fill="url(#ss2)"/>
-  <rect x="21" y="8" width="4" height="18" rx="1" fill="url(#ss3)"/>
-  <defs>
-    <linearGradient id="ss1" x1="7" y1="26" x2="11" y2="18" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#a78bfa"/>
-      <stop offset="1" stop-color="#7c3aed"/>
-    </linearGradient>
-    <linearGradient id="ss2" x1="14" y1="26" x2="18" y2="13" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#fbbf24"/>
-      <stop offset="1" stop-color="#f59e0b"/>
-    </linearGradient>
-    <linearGradient id="ss3" x1="21" y1="26" x2="25" y2="8" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#fcd34d"/>
-      <stop offset="1" stop-color="#c084fc"/>
-    </linearGradient>
-  </defs>
+  <rect width="32" height="32" rx="8" fill="#0e1720"/>
+  <rect x="7" y="8" width="18" height="16" rx="2" fill="#f4f7fa"/>
+  <rect x="10" y="12" width="10" height="1.5" rx="0.75" fill="#0f9e8a"/>
+  <rect x="10" y="16" width="7" height="1.5" rx="0.75" fill="#c5d0d8"/>
+  <rect x="10" y="20" width="12" height="1.5" rx="0.75" fill="#c5d0d8"/>
+  <circle cx="24" cy="22" r="5" fill="#0f9e8a"/>
+  <path d="M22.2 22.1l1.2 1.2 2.4-2.6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

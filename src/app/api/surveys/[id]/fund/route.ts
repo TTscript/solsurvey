@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Connection } from "@solana/web3.js";
 import { RPC_URL } from "@/lib/constants";
 import { userFacingError } from "@/lib/errors";
+import { toPublicSurvey } from "@/lib/public-survey";
 import { getSurvey, updateSurvey } from "@/lib/survey-store";
 import { verifyPoolFunding } from "@/lib/verify-funding";
 import { getVaultPublicKey } from "@/lib/vault";
@@ -28,7 +29,10 @@ export async function POST(
     }
 
     if (survey.status === "active") {
-      return NextResponse.json({ survey, message: "Survey is already funded and live." });
+      return NextResponse.json({
+        survey: toPublicSurvey(survey),
+        message: "Survey is already funded and live.",
+      });
     }
 
     const body = await request.json();
@@ -76,7 +80,7 @@ export async function POST(
     });
 
     return NextResponse.json({
-      survey: updated,
+      survey: updated ? toPublicSurvey(updated) : null,
       message: "Pool funded. Your survey is live.",
     });
   } catch (err) {

@@ -1,27 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
-import { HeroIllustration } from "@/components/HeroIllustration";
+import { HeroProductStage } from "@/components/HeroProductStage";
 import { MainContainer } from "@/components/MainContainer";
 import { PAGE_PADDING } from "@/components/PageShell";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
-import { StatsStrip } from "@/components/StatsStrip";
 
-const steps = ["Build", "Fund pool", "Share link", "Pay on submit"] as const;
-
-const pillars = [
-  "Wallet-verified respondents",
-  "SOL on submit",
-  "On-chain receipts",
+const steps = [
+  { n: "01", title: "Build", body: "Draft questions and set the reward per response." },
+  { n: "02", title: "Fund", body: "Send the SOL pool from your wallet to activate." },
+  { n: "03", title: "Share", body: "One public link — no emails, no gift cards." },
+  { n: "04", title: "Pay", body: "On submit, the vault pays the respondent instantly." },
 ] as const;
 
-const highlights = [
+const reasons = [
   {
     title: "Better signal",
     body: "A small SOL reward nudges thoughtful answers instead of drive-by clicks.",
   },
   {
     title: "No payout desk",
-    body: "Set the pool once—transfers fire automatically when someone submits.",
+    body: "Set the pool once — transfers fire automatically when someone submits.",
   },
   {
     title: "Wallet as ID",
@@ -29,188 +27,137 @@ const highlights = [
   },
 ] as const;
 
-const audiences = [
-  {
-    title: "Running surveys",
-    body: "Draft questions, fund a pool, and share one public link.",
-    href: "/operators",
-    label: "Creator guide",
-  },
-  {
-    title: "For respondents",
-    body: "See the reward upfront, connect a wallet, answer, and receive SOL.",
-    href: "/respondents",
-    label: "Respondent FAQ",
-  },
-] as const;
-
-const LANDING_IMAGE =
-  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80";
-
 export default function Home() {
   return (
-    <MainContainer className={PAGE_PADDING}>
-      <section className="relative mb-10 sm:mb-14">
-        <div
-          className="animate-glow-drift pointer-events-none absolute left-1/2 top-0 h-[16rem] w-[min(100%,36rem)] opacity-35 blur-[100px] sm:h-[20rem]"
-          aria-hidden
-          style={{
-            background:
-              "radial-gradient(ellipse at center, rgba(153,69,255,0.28) 0%, rgba(240,185,11,0.07) 55%, transparent 72%)",
-          }}
+    <>
+      {/* Hero — brand masthead + product stage (not stock dashboard) */}
+      <section className="relative isolate overflow-hidden border-b border-line">
+        <MainContainer className="py-10 sm:py-14 lg:py-16">
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="text-center lg:col-span-6 lg:text-left">
+              <p className="animate-hero-in ss-section-label mb-4">
+                <span className="inline-flex items-center gap-2">
+                  <span className="animate-pulse-dot size-1.5 rounded-full bg-pulse" />
+                  Solana surveys
+                </span>
+              </p>
+              <h1 className="animate-hero-in animate-hero-delay-1 ss-display mb-4 text-[clamp(2.75rem,10vw,5.5rem)] text-ink">
+                SolSurvey
+              </h1>
+              <p className="animate-hero-in animate-hero-delay-2 mx-auto mb-3 max-w-md text-balance text-xl font-semibold tracking-tight text-ink sm:text-2xl lg:mx-0">
+                Rewarded feedback, paid on submit.
+              </p>
+              <p className="animate-hero-in animate-hero-delay-2 mx-auto mb-8 max-w-md text-sm leading-relaxed text-ink-soft sm:text-base lg:mx-0">
+                Questionnaire + SOL pool + one link. Respondents connect a wallet and get paid when they finish.
+              </p>
+              <div className="animate-hero-in animate-hero-delay-3 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
+                <Link
+                  href="/builder"
+                  className="ss-btn-primary inline-flex w-full items-center justify-center rounded-xl px-6 py-3.5 text-sm font-semibold sm:w-auto"
+                >
+                  Launch builder
+                </Link>
+                <Link
+                  href="/surveys"
+                  className="ss-btn-ghost inline-flex w-full items-center justify-center rounded-xl px-6 py-3.5 text-sm font-semibold sm:w-auto"
+                >
+                  Browse surveys
+                </Link>
+              </div>
+            </div>
+
+            <div className="lg:col-span-6">
+              <HeroProductStage />
+            </div>
+          </div>
+        </MainContainer>
+      </section>
+
+      {/* Atmosphere — full-bleed editorial photo */}
+      <section className="relative isolate min-h-[42vh] overflow-hidden sm:min-h-[48vh]">
+        <Image
+          src="/images/hero.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover object-[center_40%]"
+          sizes="100vw"
         />
-        <div className="relative grid items-center gap-8 lg:grid-cols-12 lg:gap-10">
-          <div className="order-2 text-center lg:order-1 lg:col-span-7 lg:text-left">
-            <p className="animate-hero-in mb-3 text-xs font-semibold uppercase tracking-wider text-[#c4b5fd]">
-              Solana surveys
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-b from-paper/20 via-transparent to-paper/85"
+        />
+        <div className="absolute inset-x-0 bottom-0 z-10 px-4 pb-8 sm:px-6 sm:pb-10 lg:px-8">
+          <p className="mx-auto max-w-6xl text-balance text-lg font-semibold tracking-tight text-ink sm:text-2xl">
+            Real answers. On-chain receipts.
+          </p>
+        </div>
+      </section>
+
+      <MainContainer className={PAGE_PADDING}>
+        <RevealOnScroll>
+          <section className="mb-14 sm:mb-16">
+            <p className="ss-section-label mb-3 text-center">Why teams use it</p>
+            <h2 className="ss-display mb-8 text-center text-3xl text-ink sm:text-4xl">
+              Signal over noise
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {reasons.map(({ title, body }, i) => (
+                <RevealOnScroll key={title} delay={i * 90}>
+                  <div className="hover-lift h-full rounded-2xl border border-line bg-raised/80 p-5 sm:p-6">
+                    <p className="mb-3 font-mono text-xs font-bold text-pulse">0{i + 1}</p>
+                    <h3 className="mb-2 text-lg font-bold text-ink">{title}</h3>
+                    <p className="text-sm leading-relaxed text-ink-soft">{body}</p>
+                  </div>
+                </RevealOnScroll>
+              ))}
+            </div>
+          </section>
+        </RevealOnScroll>
+
+        <RevealOnScroll>
+          <section className="mb-14 sm:mb-16">
+            <p className="ss-section-label mb-3 text-center">Flow</p>
+            <h2 className="ss-display mb-8 text-center text-3xl text-ink sm:text-4xl">
+              Four steps to a live pool
+            </h2>
+            <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {steps.map(({ n, title, body }, i) => (
+                <RevealOnScroll key={title} delay={i * 70}>
+                  <li className="rounded-2xl border border-line bg-raised/70 p-5">
+                    <span className="mb-3 block font-mono text-xs font-bold text-pulse">{n}</span>
+                    <h3 className="mb-1.5 font-bold text-ink">{title}</h3>
+                    <p className="text-sm leading-relaxed text-ink-soft">{body}</p>
+                  </li>
+                </RevealOnScroll>
+              ))}
+            </ol>
+          </section>
+        </RevealOnScroll>
+
+        <RevealOnScroll>
+          <section className="rounded-2xl border border-line bg-ink px-5 py-8 text-center sm:px-10 sm:py-10">
+            <h2 className="ss-display mb-3 text-3xl text-raised sm:text-4xl">Ready to launch?</h2>
+            <p className="mx-auto mb-6 max-w-md text-sm leading-relaxed text-white/65 sm:text-base">
+              Draft in the builder, fund the pool, share one link. Private results stay behind your manage token.
             </p>
-            <h1 className="animate-hero-in animate-hero-delay-1 mb-4 text-balance text-[1.75rem] font-bold leading-tight tracking-tight text-white sm:mb-5 sm:text-5xl lg:text-[3rem] lg:leading-[1.1]">
-              Rewarded feedback,{" "}
-              <span className="animate-text-shimmer bg-gradient-to-r from-[#9945ff] via-[#f0b90b] to-[#9945ff] bg-clip-text text-transparent">
-                paid instantly.
-              </span>
-            </h1>
-            <p className="animate-hero-in animate-hero-delay-2 mx-auto mb-6 max-w-md text-sm leading-relaxed text-[#848e9c] sm:mb-8 sm:text-base lg:mx-0">
-              Questionnaire + SOL pool + one link. Payout when someone submits.
-            </p>
-            <div className="animate-hero-in animate-hero-delay-3 flex flex-col gap-3 sm:flex-row sm:justify-start">
+            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 href="/builder"
-                className="hover-lift inline-flex w-full items-center justify-center rounded-xl bg-[#f0b90b] px-6 py-3.5 text-sm font-semibold text-[#0b0e11] transition hover:bg-[#fcd535] sm:w-auto"
+                className="ss-btn-primary inline-flex min-h-11 items-center justify-center rounded-xl px-6 py-2.5 text-sm font-semibold"
               >
                 Launch builder
               </Link>
               <Link
-                href="/surveys"
-                className="hover-lift inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/[0.04] px-6 py-3.5 text-sm font-semibold text-white transition hover:border-[#9945ff]/40 hover:bg-[#9945ff]/10 sm:w-auto"
+                href="/reward-flow"
+                className="inline-flex min-h-11 items-center justify-center text-sm font-medium text-white/70 transition hover:text-white"
               >
-                Browse surveys
+                See reward flow →
               </Link>
             </div>
-          </div>
-
-          <div className="order-1 lg:order-2 lg:col-span-5">
-            <HeroIllustration />
-          </div>
-        </div>
-      </section>
-
-      <StatsStrip />
-
-      <RevealOnScroll>
-        <section className="mx-auto mb-10 max-w-4xl sm:mb-14">
-          <div className="mb-5 text-center sm:mb-6">
-            <h2 className="mb-2 text-lg font-bold text-white sm:text-2xl">From answers to insight</h2>
-            <p className="mx-auto max-w-lg text-sm leading-relaxed text-[#848e9c]">
-              Qualitative responses with verifiable payouts—not just the loudest voice in the thread.
-            </p>
-          </div>
-          <figure className="hover-lift relative overflow-hidden rounded-xl border border-white/[0.1] shadow-2xl shadow-black/40 sm:rounded-2xl">
-            <div className="relative aspect-[4/3] w-full sm:aspect-[16/9]">
-              <Image
-                src={LANDING_IMAGE}
-                alt="Analytics dashboard with charts and survey metrics"
-                fill
-                className="object-cover transition-transform duration-700 hover:scale-[1.03]"
-                sizes="(max-width: 896px) 100vw, 896px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0b0e11] via-[#0b0e11]/25 to-transparent" />
-              <figcaption className="absolute inset-x-0 bottom-0 px-4 py-4 text-center sm:px-8 sm:py-6">
-                <p className="text-xs font-medium text-white sm:text-base">
-                  Track responses, pool spend, and SOL payouts from your private results link.
-                </p>
-              </figcaption>
-            </div>
-          </figure>
-        </section>
-      </RevealOnScroll>
-
-      <RevealOnScroll>
-        <section className="mb-10 sm:mb-12">
-          <h2 className="mb-5 text-center text-lg font-bold text-white sm:mb-8 sm:text-xl">
-            Why teams use it
-          </h2>
-          <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
-            {highlights.map(({ title, body }, i) => (
-              <RevealOnScroll key={title} delay={i * 90}>
-                <div className="hover-lift h-full rounded-xl border border-white/[0.08] bg-[#12161c]/60 p-4 sm:rounded-2xl sm:p-6">
-                  <h3 className="mb-1.5 font-semibold text-white sm:mb-2">{title}</h3>
-                  <p className="text-sm leading-relaxed text-[#848e9c]">{body}</p>
-                </div>
-              </RevealOnScroll>
-            ))}
-          </div>
-        </section>
-      </RevealOnScroll>
-
-      <RevealOnScroll>
-        <section className="mb-10 sm:mb-12">
-          <ol className="mx-auto flex max-w-md flex-col gap-2 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-5 sm:gap-y-2">
-            {steps.map((step, i) => (
-              <RevealOnScroll key={step} delay={i * 70}>
-                <li className="flex items-center gap-3 text-sm sm:gap-5">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#9945ff]/15 text-xs font-bold text-[#c4b5fd] sm:hidden">
-                    {i + 1}
-                  </span>
-                  {i > 0 ? (
-                    <span className="hidden text-[#2b3139] sm:inline" aria-hidden>
-                      →
-                    </span>
-                  ) : null}
-                  <span className={i === steps.length - 1 ? "font-medium text-[#f0b90b]" : "text-zinc-300"}>
-                    {step}
-                  </span>
-                </li>
-              </RevealOnScroll>
-            ))}
-          </ol>
-        </section>
-      </RevealOnScroll>
-
-      <RevealOnScroll>
-        <section className="mb-10 grid gap-3 sm:mb-12 sm:grid-cols-2 sm:gap-5">
-          {audiences.map(({ title, body, href, label }, i) => (
-            <RevealOnScroll key={title} delay={i * 100}>
-              <div className="hover-lift h-full rounded-xl border border-white/[0.08] bg-[#12161c]/50 p-4 sm:rounded-2xl sm:p-6">
-                <h3 className="mb-1.5 font-semibold text-white sm:mb-2">{title}</h3>
-                <p className="mb-3 text-sm leading-relaxed text-[#848e9c] sm:mb-4">{body}</p>
-                <Link href={href} className="text-sm font-medium text-[#f0b90b] transition hover:text-[#fcd535]">
-                  {label} →
-                </Link>
-              </div>
-            </RevealOnScroll>
-          ))}
-        </section>
-      </RevealOnScroll>
-
-      <RevealOnScroll>
-        <section className="rounded-xl border border-white/[0.08] bg-[#12161c]/50 px-4 py-5 sm:rounded-2xl sm:px-8 sm:py-6">
-          <ul className="grid gap-3 sm:grid-cols-3 sm:gap-6">
-            {pillars.map((line, i) => (
-              <RevealOnScroll key={line} delay={i * 80}>
-                <li className="flex items-center gap-3 text-sm text-[#b7bdc6]">
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#f0b90b]" />
-                  {line}
-                </li>
-              </RevealOnScroll>
-            ))}
-          </ul>
-          <div className="mt-5 flex flex-col gap-2.5 border-t border-white/[0.06] pt-5 sm:mt-6 sm:flex-row sm:items-center sm:justify-center sm:gap-3 sm:pt-6">
-            <Link
-              href="/builder"
-              className="hover-lift inline-flex min-h-11 items-center justify-center rounded-xl bg-[#f0b90b] px-5 py-2.5 text-sm font-semibold text-[#0b0e11] transition hover:bg-[#fcd535]"
-            >
-              Launch builder
-            </Link>
-            <Link
-              href="/reward-flow"
-              className="inline-flex min-h-11 items-center justify-center text-sm text-[#848e9c] transition hover:text-[#f0b90b]"
-            >
-              See reward flow →
-            </Link>
-          </div>
-        </section>
-      </RevealOnScroll>
-    </MainContainer>
+          </section>
+        </RevealOnScroll>
+      </MainContainer>
+    </>
   );
 }
