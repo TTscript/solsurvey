@@ -1,0 +1,122 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  APP_DIR: /var/www/solsurvey.site
+  PM2_NAME: solsurvey-web
+  APP_PORT: 3002
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+      NEXT_PUBLIC_APP_URL: https://solsurvey.site
+      NEXT_PUBLIC_SOLANA_NETWORK: devnet
+      NEXT_PUBLIC_RPC_URL: https://api.devnet.solana.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Package standalone build
+        run: |
+          mkdir -p dist/.next
+          cp -a .next/standalone/. dist/
+          cp -a .next/static dist/.next/static
+          cp -a public dist/public
+          tar -czf build.tgz -C dist .
+          ls -lh build.tgz
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: build.tgz
+          retention-days: 3
+          if-no-files-found: error
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: build
+
+      - name: Set up SSH
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          PORT: ${{ secrets.DEPLOY_PORT }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          cat > ~/.ssh/config << EOF
+          Host server
+            HostName $HOST
+            Port $PORT
+            User ubuntu
+            IdentityFile ~/.ssh/deploy_key
+            IdentitiesOnly yes
+            StrictHostKeyChecking yes
+            ServerAliveInterval 30
+          EOF
+
+      - name: Upload build
+        run: scp build.tgz server:/tmp/solsurvey-build.tgz
+
+      - name: Install and restart
+        run: |
+          ssh server "APP_DIR=$APP_DIR PM2_NAME=$PM2_NAME APP_PORT=$APP_PORT bash -se" << 'EOF'
+          set -euo pipefail
+          STAGE=$(mktemp -d /tmp/solsurvey-release.XXXXXX)
+          tar -xzf /tmp/solsurvey-build.tgz -C "$STAGE"
+          rm -f /tmp/solsurvey-build.tgz
+          rsync -a --delete \
+            --exclude .env --exclude .env.local --exclude data/ --exclude ecosystem.config.cjs \
+            "$STAGE"/ "$APP_DIR"/
+          rm -rf "$STAGE"
+          cd "$APP_DIR"
+          pm2 restart "$PM2_NAME" || pm2 start ecosystem.config.cjs
+          pm2 save
+          for i in $(seq 1 30); do
+            if curl -fsS -o /dev/null "http://127.0.0.1:$APP_PORT/"; then
+              echo "Healthy after $i attempt(s)"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "App did not respond on port $APP_PORT" >&2
+          pm2 logs "$PM2_NAME" --lines 50 --nostream || true
+          exit 1
+          EOF
+
+      - name: Check public site
+        run: curl -fsS -o /dev/null -w '%{http_code}\n' --retry 5 --retry-delay 3 --retry-all-errors https://solsurvey.site/
+
+      - name: Clean up SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

@@ -1,0 +1,319 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #e6ecf1;
+  --raised: #f4f7fa;
+  --ink: #0e1720;
+  --ink-soft: #3a4a58;
+  --muted: #6b7c8a;
+  --line: rgba(14, 23, 32, 0.12);
+  --line-strong: rgba(14, 23, 32, 0.22);
+  --pulse: #0f9e8a;
+  --pulse-deep: #0b7d6d;
+  --pulse-soft: rgba(15, 158, 138, 0.12);
+  --reward: #b8860b;
+  --reward-soft: rgba(184, 134, 11, 0.14);
+  --background: var(--paper);
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-paper: var(--paper);
+  --color-raised: var(--raised);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-pulse: var(--pulse);
+  --color-pulse-deep: var(--pulse-deep);
+  --color-pulse-soft: var(--pulse-soft);
+  --color-reward: var(--reward);
+  --color-reward-soft: var(--reward-soft);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--pulse) 28%, transparent);
+  color: var(--ink);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+  overflow-x: hidden;
+}
+
+.ss-shell {
+  min-height: 100dvh;
+  background:
+    radial-gradient(ellipse 65% 42% at 88% -8%, rgba(15, 158, 138, 0.1), transparent 55%),
+    radial-gradient(ellipse 50% 36% at -6% 38%, rgba(14, 23, 32, 0.04), transparent 50%),
+    linear-gradient(180deg, #dfe7ee 0%, var(--paper) 38%, #dce4eb 100%);
+}
+
+.ss-display {
+  font-family: var(--font-display), "Fraunces", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.94;
+}
+
+.ss-section-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ss-surface {
+  background: var(--raised);
+  border: 1px solid var(--line);
+}
+
+.ss-btn-primary {
+  background: var(--pulse);
+  color: #fff;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ss-btn-primary:hover {
+  background: var(--pulse-deep);
+  box-shadow: 0 10px 28px rgba(15, 158, 138, 0.28);
+}
+
+.ss-btn-ghost {
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--raised) 70%, transparent);
+  color: var(--ink);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.ss-btn-ghost:hover {
+  border-color: var(--pulse);
+  background: var(--pulse-soft);
+}
+
+@keyframes ss-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ss-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) rotate(-1.2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-0.6deg);
+  }
+}
+
+@keyframes ss-receipt-in {
+  from {
+    opacity: 0;
+    transform: translate(18px, 22px) rotate(4deg);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(2.5deg);
+  }
+}
+
+@keyframes ss-pulse-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.55;
+  }
+}
+
+@keyframes ss-check-draw {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-hero-in {
+  animation: ss-fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.animate-hero-delay-1 {
+  animation-delay: 0.1s;
+}
+.animate-hero-delay-2 {
+  animation-delay: 0.2s;
+}
+.animate-hero-delay-3 {
+  animation-delay: 0.32s;
+}
+
+.animate-sheet-in {
+  animation: ss-sheet-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+  opacity: 0;
+}
+
+.animate-receipt-in {
+  animation: ss-receipt-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+  opacity: 0;
+}
+
+.animate-pulse-dot {
+  animation: ss-pulse-dot 2.4s ease-in-out infinite;
+}
+
+.animate-check-draw {
+  stroke-dasharray: 24;
+  animation: ss-check-draw 0.7s ease forwards 0.9s;
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hover-lift {
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(14, 23, 32, 0.1);
+}
+
+/* Wallet adapter modal — Pulse Form theme */
+.wallet-adapter-modal-wrapper {
+  z-index: 100 !important;
+  background: rgba(14, 23, 32, 0.55) !important;
+  backdrop-filter: blur(6px);
+}
+
+.wallet-adapter-modal {
+  z-index: 100 !important;
+  background: var(--raised) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 24px 64px rgba(14, 23, 32, 0.22) !important;
+  font-family: var(--font-body), system-ui, sans-serif !important;
+}
+
+.wallet-adapter-modal-title {
+  color: var(--ink) !important;
+  font-weight: 700 !important;
+}
+
+.wallet-adapter-modal-list {
+  margin: 0 !important;
+}
+
+.wallet-adapter-modal-list .wallet-adapter-button {
+  background: var(--paper) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 0.75rem !important;
+  color: var(--ink) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  height: auto !important;
+  line-height: 1.4 !important;
+  padding: 0.875rem 1rem !important;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease !important;
+}
+
+.wallet-adapter-modal-list .wallet-adapter-button:hover {
+  background: #fff !important;
+  border-color: color-mix(in srgb, var(--pulse) 45%, var(--line)) !important;
+}
+
+.wallet-adapter-modal-list .wallet-adapter-button span {
+  color: var(--muted) !important;
+  font-weight: 400 !important;
+}
+
+.wallet-adapter-modal-button-close {
+  background: color-mix(in srgb, var(--ink) 6%, transparent) !important;
+  border-radius: 0.5rem !important;
+}
+
+.wallet-adapter-modal-button-close:hover {
+  background: color-mix(in srgb, var(--ink) 10%, transparent) !important;
+}
+
+.wallet-adapter-modal-button-close svg {
+  fill: var(--muted) !important;
+}
+
+.wallet-adapter-collapse-button {
+  background: transparent !important;
+  color: var(--muted) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-in,
+  .animate-sheet-in,
+  .animate-receipt-in,
+  .animate-pulse-dot,
+  .animate-check-draw {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hover-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
