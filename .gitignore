@@ -44,3 +44,20 @@ yarn-error.log*
 *.tsbuildinfo
 # survey data (persisted JSON store)
 /data/*.json
+
+next-env.d.ts
+
+# editors
+.idea/
+*.iml
+.vscode/
+
+# solana / private keys
+keypair.json
+wallet.json
+private-key.json
+secret-key.json
+*.keypair.json
+*.secret.json
+keys/
+secrets/

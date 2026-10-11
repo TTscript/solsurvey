@@ -1,39 +1,115 @@
-export function SurveyRespondentPreview() {
+import type { SurveyQuestion } from "@/lib/types";
+
+const DEMO_QUESTIONS: SurveyQuestion[] = [
+  { id: "demo-1", type: "text", text: "What almost stopped you from finishing?", required: true },
+  {
+    id: "demo-2",
+    type: "single",
+    text: "How clear was the task?",
+    options: ["Clear enough to start"],
+  },
+];
+
+type Props = {
+  title?: string;
+  description?: string;
+  questions?: SurveyQuestion[];
+  rewardSol?: number;
+  poolSol?: number;
+};
+
+export function SurveyRespondentPreview({
+  title,
+  description,
+  questions,
+  rewardSol = 0.01,
+  poolSol = 0.42,
+}: Props) {
+  const live = Boolean(title || description || questions);
+  const shownTitle = title?.trim() || (live ? "Untitled survey" : "Beta feature feedback");
+  const shownQuestions = (questions ?? DEMO_QUESTIONS).slice(0, 3);
+  const reward = Number.isFinite(rewardSol) ? rewardSol : 0;
+  const pool = Number.isFinite(poolSol) ? poolSol : 0;
+
   return (
     <div className="overflow-hidden rounded-2xl border border-line bg-raised shadow-[0_18px_40px_rgba(14,23,32,0.08)]">
       <div className="border-b border-line bg-pulse-soft/50 px-5 py-3">
         <p className="ss-section-label">Respondent view</p>
-        <p className="mt-0.5 text-[11px] text-muted">What someone sees after opening your link</p>
+        <p className="mt-0.5 text-[11px] text-muted">
+          {live ? "Updates as you draft" : "What someone sees after opening your link"}
+        </p>
       </div>
 
       <div className="space-y-4 p-5 sm:p-6">
         <div>
-          <div className="mb-2 h-2.5 w-2/3 rounded bg-ink/15" />
-          <div className="h-2 w-1/2 rounded bg-ink/[0.07]" />
+          <p className="text-base font-semibold leading-snug text-ink">{shownTitle}</p>
+          {description?.trim() ? (
+            <p className="mt-1 text-sm leading-relaxed text-ink-soft">{description.trim()}</p>
+          ) : live ? (
+            <p className="mt-1 text-sm text-muted">Add a short description so people know why it matters.</p>
+          ) : (
+            <p className="mt-1 text-sm text-ink-soft">About four minutes. Paid when you submit.</p>
+          )}
         </div>
 
         <div className="rounded-xl border border-reward/25 bg-reward-soft px-3.5 py-2.5">
           <p className="text-[11px] font-medium uppercase tracking-wider text-muted">Reward</p>
-          <p className="font-mono text-sm font-semibold text-reward">0.0100 SOL · on completion</p>
+          <p className="font-mono text-sm font-semibold text-reward">
+            {reward.toFixed(4)} SOL · on completion
+          </p>
         </div>
 
         <div className="space-y-2">
-          <div className="rounded-lg border border-line bg-paper/70 px-3 py-2.5">
-            <p className="mb-1.5 text-[11px] text-muted">Q1 · Short text</p>
-            <div className="h-8 rounded-md border border-dashed border-line-strong bg-raised/80" />
-          </div>
-          <div className="rounded-lg border border-pulse/30 bg-pulse-soft/50 px-3 py-2.5">
-            <p className="mb-2 text-[11px] text-muted">Q2 · Single choice</p>
-            <div className="flex items-center gap-2">
-              <span className="size-3 rounded-full border-2 border-pulse bg-pulse/30" />
-              <span className="h-2 w-24 rounded bg-ink/10" />
-            </div>
-          </div>
+          {shownQuestions.length === 0 ? (
+            <p className="rounded-lg border border-dashed border-line px-3 py-4 text-sm text-muted">
+              Questions appear here as you add them.
+            </p>
+          ) : (
+            shownQuestions.map((question, index) => (
+              <div
+                key={question.id}
+                className={`rounded-lg border px-3 py-2.5 ${
+                  question.type === "text" ? "border-line bg-paper/70" : "border-pulse/30 bg-pulse-soft/50"
+                }`}
+              >
+                <p className="mb-1.5 text-[11px] text-muted">
+                  Q{index + 1} ·{" "}
+                  {question.type === "text"
+                    ? "Short text"
+                    : question.type === "single"
+                      ? "Single choice"
+                      : "Multiple choice"}
+                </p>
+                <p className="mb-2 text-sm text-ink">
+                  {question.text.trim() || "Question text"}
+                </p>
+                {question.type === "text" ? (
+                  <div className="h-8 rounded-md border border-dashed border-line-strong bg-raised/80" />
+                ) : (
+                  <ul className="space-y-1.5">
+                    {(question.options ?? []).filter((option) => option.trim()).slice(0, 3).map((option, optionIndex) => (
+                      <li key={`${question.id}-${optionIndex}`} className="flex items-center gap-2 text-sm text-ink-soft">
+                        <span
+                          className={`size-3 shrink-0 border-2 border-pulse ${
+                            question.type === "single" ? "rounded-full" : "rounded-sm"
+                          }`}
+                        />
+                        {option}
+                      </li>
+                    ))}
+                    {(question.options ?? []).every((option) => !option.trim()) ? (
+                      <li className="text-xs text-muted">Add options to preview choices.</li>
+                    ) : null}
+                  </ul>
+                )}
+              </div>
+            ))
+          )}
         </div>
 
         <div className="flex items-center justify-between border-t border-line pt-4 text-xs">
           <span className="text-muted">Pool remaining</span>
-          <span className="font-mono font-medium text-reward">0.42 SOL</span>
+          <span className="font-mono font-medium text-reward">{pool.toFixed(2)} SOL</span>
         </div>
 
         <div className="flex items-center gap-2 rounded-lg bg-paper px-3 py-2 text-[11px] text-muted">

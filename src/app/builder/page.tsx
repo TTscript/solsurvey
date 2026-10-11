@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import type { SurveyQuestion } from "@/lib/types";
 import { ContentCard } from "@/components/ContentCard";
+import { SurveyRespondentPreview } from "@/components/SurveyRespondentPreview";
 import { ConnectWalletPanel } from "@/components/ConnectWalletPanel";
 import { PageShell } from "@/components/PageShell";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
@@ -406,6 +407,15 @@ export default function BuilderPage() {
         </RevealOnScroll>
 
         <aside className="space-y-4 lg:sticky lg:top-24">
+          <RevealOnScroll delay={80}>
+            <SurveyRespondentPreview
+              title={title}
+              description={description}
+              questions={questions}
+              rewardSol={rewardNum}
+              poolSol={poolNum}
+            />
+          </RevealOnScroll>
           <RevealOnScroll delay={120}>
             <ContentCard title="How funding works">
               <ol className="space-y-2.5 text-sm">
