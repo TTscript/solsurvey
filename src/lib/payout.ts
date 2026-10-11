@@ -6,7 +6,7 @@ import {
   Transaction,
   sendAndConfirmTransaction,
 } from "@solana/web3.js";
-import bs58 from "bs58";
+import { parseVaultKeypair } from "@/lib/vault";
 
 const LAMPORTS_PER_SOL = 1e9;
 
@@ -29,7 +29,7 @@ export async function sendSolPayout(
 
   let keypair: Keypair;
   try {
-    keypair = Keypair.fromSecretKey(bs58.decode(secret));
+    keypair = parseVaultKeypair(secret);
   } catch {
     console.error("Invalid SURVEY_VAULT_KEYPAIR");
     return { success: false, error: "Invalid SURVEY_VAULT_KEYPAIR" };
